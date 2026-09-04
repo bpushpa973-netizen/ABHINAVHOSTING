@@ -1,0 +1,11 @@
+.git
+.github
+.replit
+.replitignore
+.conversation
+.agents
+node_modules
+**/node_modules
+**/.tsbuildinfo
+**/dist
+*.log

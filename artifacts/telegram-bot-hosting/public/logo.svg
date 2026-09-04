@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Abhinav Hosting">
+  <rect width="96" height="96" rx="24" fill="#22acd0"/>
+  <path d="M29 29h38v38H29z" fill="none" stroke="#082b3c" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M39 39l18 18M57 39L39 57" stroke="#082b3c" stroke-width="6" stroke-linecap="round"/>
+</svg>
