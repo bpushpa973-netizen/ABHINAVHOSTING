@@ -16,7 +16,7 @@ ENV BASE_PATH=/
 ENV NODE_ENV=production
 ENV STORAGE_DIR=/data/uploads
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 RUN pnpm build
 
 RUN mkdir -p /data/uploads
