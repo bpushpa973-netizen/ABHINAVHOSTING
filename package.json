@@ -6,7 +6,7 @@
   "packageManager": "pnpm@10.4.1",
   "scripts": {
     "build": "pnpm --filter @workspace/telegram-bot-hosting build && pnpm --filter @workspace/api-server build",
-    "start": "pnpm db:push && node --enable-source-maps artifacts/api-server/dist/index.mjs",
+    "start": "node --enable-source-maps artifacts/api-server/dist/index.mjs",
     "db:push": "pnpm --filter @workspace/db push"
   }
 }
