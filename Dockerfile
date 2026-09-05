@@ -11,10 +11,18 @@ WORKDIR /app
 COPY . .
 
 ARG PORT=3000
+ARG VITE_CLERK_PUBLISHABLE_KEY
+ARG CLERK_PUBLISHABLE_KEY
+
 ENV PORT=$PORT
 ENV BASE_PATH=/
 ENV NODE_ENV=production
 ENV STORAGE_DIR=/data/uploads
+
+# Make Clerk's frontend key available during the Vite build.
+# Railway should define VITE_CLERK_PUBLISHABLE_KEY as a build variable.
+ENV VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY
+ENV CLERK_PUBLISHABLE_KEY=$CLERK_PUBLISHABLE_KEY
 
 RUN pnpm install --no-frozen-lockfile
 RUN pnpm build
