@@ -10,8 +10,6 @@ RUN corepack enable && corepack prepare pnpm@10.4.1 --activate \
 WORKDIR /app
 COPY . .
 
-ARG PORT=3000
-ENV PORT=$PORT
 ENV BASE_PATH=/
 ENV NODE_ENV=production
 ENV STORAGE_DIR=/data/uploads
@@ -20,6 +18,6 @@ RUN pnpm install --no-frozen-lockfile
 RUN pnpm build
 
 RUN mkdir -p /data/uploads
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["pnpm", "start"]
