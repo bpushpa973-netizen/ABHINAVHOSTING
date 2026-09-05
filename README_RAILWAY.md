@@ -21,3 +21,7 @@ After the PostgreSQL service is available, run `pnpm db:push` once if the schema
 ## Clerk on Railway
 
 This Railway setup intentionally does not proxy Clerk Frontend API requests. This is compatible with Clerk Development instances. Do not set `VITE_CLERK_PROXY_URL` for the development instance. If you later switch to a Clerk Production instance and enable Frontend API proxying in Clerk, configure the proxy explicitly according to Clerk's documentation.
+
+
+## Important Clerk/Railway fix
+Clerk middleware is mounted only on `/api`, not globally, so the public `/` route is served normally and does not redirect to the Clerk development handshake.

@@ -22,16 +22,20 @@ app.use(
     },
   }),
 );
-app.use(
-  clerkMiddleware({
-    publishableKey: process.env.CLERK_PUBLISHABLE_KEY,
-  }),
-);
 app.use(cors());
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api", router);
+// Clerk authentication is needed by protected API routes, but must NOT run
+// on the website root. Running clerkMiddleware globally makes Clerk redirect
+// every browser request (including /) to the development handshake endpoint.
+app.use(
+  "/api",
+  clerkMiddleware({
+    publishableKey: process.env.CLERK_PUBLISHABLE_KEY,
+  }),
+  router,
+);
 
 // Serve the built React app from the same Railway service.
 const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../telegram-bot-hosting/dist/public");
