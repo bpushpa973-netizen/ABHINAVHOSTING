@@ -4,7 +4,6 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ClerkProvider, Show, SignIn, SignUp, useClerk, useUser } from '@clerk/react';
-import { publishableKeyFromHost } from '@clerk/react/internal';
 import { shadcn } from '@clerk/themes';
 import {
   Activity, AlertCircle, ArrowDownRight, ArrowUpRight, Bell, Bot,
@@ -19,8 +18,7 @@ import NotFound from '@/pages/not-found';
 
 const queryClient = new QueryClient();
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
-const clerkPubKey = publishableKeyFromHost(window.location.hostname, import.meta.env.VITE_CLERK_PUBLISHABLE_KEY);
-const clerkProxyUrl = import.meta.env.VITE_CLERK_PROXY_URL;
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const adminEmailAllowlist = new Set(['abhinavking56777@gmail.com']);
 
 function hasAdminAccess(user: { publicMetadata?: Record<string, unknown>; primaryEmailAddress?: { emailAddress: string } | null } | null | undefined) {
@@ -485,7 +483,7 @@ function HomeRedirect() {
 
 function ClerkRoutes() {
   const [, setLocation] = useLocation();
-  return <ClerkProvider publishableKey={clerkPubKey} proxyUrl={clerkProxyUrl} localization={{ signIn: { start: { title: 'Welcome back to Abhinav Hosting', subtitle: 'Sign in to manage your Telegram bots' } }, signUp: { start: { title: 'Create your Abhinav Hosting account', subtitle: 'Your first month is free' } } }} appearance={{ theme: shadcn, variables: { colorPrimary: '#139bbd', colorForeground: '#173443', colorMutedForeground: '#78909a', colorBackground: '#ffffff', colorInput: '#f6f9fa', colorInputForeground: '#173443', colorNeutral: '#dce8ec', colorDanger: '#c55f4d', fontFamily: 'Manrope, sans-serif', borderRadius: '0.8rem' }, options: { logoImageUrl: `${window.location.origin}${basePath}/logo.svg`, logoLinkUrl: basePath || '/' } }} signInUrl={`${basePath}/sign-in`} signUpUrl={`${basePath}/sign-up`} routerPush={(to) => setLocation(to.replace(basePath, '') || '/')} routerReplace={(to) => setLocation(to.replace(basePath, '') || '/') }><Switch><Route path="/" component={HomeRedirect} /><Route path="/sign-in/*?" component={SignInPage} /><Route path="/sign-up/*?" component={SignUpPage} /><Route component={HomeRedirect} /></Switch></ClerkProvider>;
+  return <ClerkProvider publishableKey={clerkPubKey} localization={{ signIn: { start: { title: 'Welcome back to Abhinav Hosting', subtitle: 'Sign in to manage your Telegram bots' } }, signUp: { start: { title: 'Create your Abhinav Hosting account', subtitle: 'Your first month is free' } } }} appearance={{ theme: shadcn, variables: { colorPrimary: '#139bbd', colorForeground: '#173443', colorMutedForeground: '#78909a', colorBackground: '#ffffff', colorInput: '#f6f9fa', colorInputForeground: '#173443', colorNeutral: '#dce8ec', colorDanger: '#c55f4d', fontFamily: 'Manrope, sans-serif', borderRadius: '0.8rem' }, options: { logoImageUrl: `${window.location.origin}${basePath}/logo.svg`, logoLinkUrl: basePath || '/' } }} signInUrl={`${basePath}/sign-in`} signUpUrl={`${basePath}/sign-up`} routerPush={(to) => setLocation(to.replace(basePath, '') || '/')} routerReplace={(to) => setLocation(to.replace(basePath, '') || '/') }><Switch><Route path="/" component={HomeRedirect} /><Route path="/sign-in/*?" component={SignInPage} /><Route path="/sign-up/*?" component={SignUpPage} /><Route component={HomeRedirect} /></Switch></ClerkProvider>;
 }
 
 function App() {
