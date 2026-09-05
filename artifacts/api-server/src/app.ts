@@ -26,9 +26,10 @@ app.use(cors());
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-// Clerk authentication is needed by protected API routes, but must NOT run
-// on the website root. Running clerkMiddleware globally makes Clerk redirect
-// every browser request (including /) to the development handshake endpoint.
+// Clerk authentication is required for API routes only.
+// Do NOT run clerkMiddleware on the whole app: doing so makes Clerk
+// redirect public/browser requests to its Frontend API handshake, which
+// results in a blank page on Railway for development instances.
 app.use(
   "/api",
   clerkMiddleware({
